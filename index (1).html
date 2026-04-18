@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健身营养智能工具</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="page active" id="page-home">
+        <div class="header">
+            <h1>健身营养智能工具</h1>
+        </div>
+        <div class="tool-grid">
+            <div class="tool-card" onclick="showPage('kings-cycle')">
+                <h3>凯圣王碳循环</h3>
+                <button class="btn btn-primary">立即使用</button>
+            </div>
+            <div class="tool-card" onclick="showPage('three-low-one-high')">
+                <h3>三低一高碳循环</h3>
+                <button class="btn btn-primary">立即使用</button>
+            </div>
+            <div class="tool-card" onclick="showPage('orange-carb')">
+                <h3>橙子碳水渐降</h3>
+                <button class="btn btn-primary">立即使用</button>
+            </div>
+            <div class="tool-card" onclick="showPage('sixteen-eight')">
+                <h3>16+8轻断食</h3>
+                <button class="btn btn-primary">立即使用</button>
+            </div>
+            <div class="tool-card" onclick="showPage('five-two')">
+                <h3>5+2轻断食</h3>
+                <button class="btn btn-primary">立即使用</button>
+            </div>
+            <div class="tool-card" onclick="showPage('bulk-plan')">
+                <h3>增肌饮食</h3>
+                <button class="btn btn-primary">立即使用</button>
+            </div>
+            <div class="tool-card" onclick="showPage('muscle-plan')">
+                <h3>增肌训练计划</h3>
+                <button class="btn btn-primary">立即使用</button>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">工具对比</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>工具</th>
+                            <th>适合人群</th>
+                            <th>训练要求</th>
+                            <th>减脂速度</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>凯圣王碳循环</td>
+                            <td>有训练基础</td>
+                            <td>中高强度</td>
+                            <td>快速</td>
+                        </tr>
+                        <tr>
+                            <td>橙子碳水渐降</td>
+                            <td>新手</td>
+                            <td>低强度</td>
+                            <td>平缓</td>
+                        </tr>
+                        <tr>
+                            <td>16+8轻断食</td>
+                            <td>所有人群</td>
+                            <td>无要求</td>
+                            <td>中等</td>
+                        </tr>
+                        <tr>
+                            <td>5+2轻断食</td>
+                            <td>所有人群</td>
+                            <td>无要求</td>
+                            <td>中等</td>
+                        </tr>
+                        <tr>
+                            <td>三低一高碳循环</td>
+                            <td>有训练基础</td>
+                            <td>中高强度</td>
+                            <td>快速</td>
+                        </tr>
+                        <tr>
+                            <td>增肌饮食</td>
+                            <td>增肌人群</td>
+                            <td>中高强度</td>
+                            <td>增肌</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-kings-cycle">
+        <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+        <div class="header">
+            <h1>凯圣王碳循环</h1>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第一步：基本信息</h2>
+            <div class="form-group">
+                <label>体重 (kg)</label>
+                <input type="number" id="kc-weight" value="70">
+            </div>
+            <div class="form-group">
+                <label>身高 (cm)</label>
+                <input type="number" id="kc-height" value="175">
+            </div>
+            <div class="form-group">
+                <label>年龄 (岁)</label>
+                <input type="number" id="kc-age" value="25">
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <select id="kc-gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第二步：胚型选择</h2>
+            <div class="radio-group" id="kc-somatotype">
+                <div class="radio-card active" data-value="ectomorph">外胚型</div>
+                <div class="radio-card" data-value="mesomorph">中胚型</div>
+                <div class="radio-card" data-value="endomorph">内胚型</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第三步：训练计划</h2>
+            <div class="radio-group" id="kc-train-pattern">
+                <div class="radio-card" data-value="1">练1休1</div>
+                <div class="radio-card active" data-value="2">练2休1</div>
+                <div class="radio-card" data-value="3">练3休1</div>
+                <div class="radio-card" data-value="4">练4休1</div>
+            </div>
+        </div>
+        <div class="card">
+            <button class="btn btn-primary" onclick="calculateKingsCycle()">生成计划</button>
+        </div>
+        <div class="card" id="kc-result" style="display: none;">
+            <h2 class="step-title">计划结果</h2>
+            <div id="kc-output"></div>
+            <div style="margin-top: 12px;">
+                <button class="btn btn-outline" onclick="exportKingsCycle()">导出Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-orange-carb">
+        <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+        <div class="header">
+            <h1>橙子碳水渐降</h1>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第一步：基本信息</h2>
+            <div class="form-group">
+                <label>体重 (kg)</label>
+                <input type="number" id="oc-weight" value="70">
+            </div>
+            <div class="form-group">
+                <label>身高 (cm)</label>
+                <input type="number" id="oc-height" value="175">
+            </div>
+            <div class="form-group">
+                <label>体脂率 (%)</label>
+                <input type="number" id="oc-bodyfat" value="20">
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <select id="oc-gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第二步：训练信息</h2>
+            <div class="form-group">
+                <label>每周训练天数</label>
+                <input type="number" id="oc-train-days" value="3" min="1" max="7">
+            </div>
+            <div class="form-group">
+                <label>训练强度</label>
+                <select id="oc-intensity">
+                    <option value="5">新手/女生</option>
+                    <option value="8" selected>普通健身爱好者</option>
+                    <option value="10">高强度训练者</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第三步：营养素比例</h2>
+            <div class="radio-group" id="oc-ratio">
+                <div class="radio-card active" data-value="532">5:3:2</div>
+                <div class="radio-card" data-value="442">4:4:2</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第四步：目标体重</h2>
+            <div class="form-group">
+                <label>目标体重 (kg)</label>
+                <input type="number" id="oc-target-weight" value="65">
+            </div>
+        </div>
+        <div class="card">
+            <button class="btn btn-primary" onclick="calculateOrangeCarb()">生成计划</button>
+        </div>
+        <div class="card" id="oc-result" style="display: none;">
+            <h2 class="step-title">计划结果</h2>
+            <div id="oc-output"></div>
+            <div style="margin-top: 12px;">
+                <button class="btn btn-outline" onclick="exportOrangeCarb()">导出Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-sixteen-eight">
+        <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+        <div class="header">
+            <h1>16+8轻断食</h1>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第一步：基本信息</h2>
+            <div class="form-group">
+                <label>体重 (kg)</label>
+                <input type="number" id="sf-weight" value="70">
+            </div>
+            <div class="form-group">
+                <label>身高 (cm)</label>
+                <input type="number" id="sf-height" value="175">
+            </div>
+            <div class="form-group">
+                <label>年龄 (岁)</label>
+                <input type="number" id="sf-age" value="25">
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <select id="sf-gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第二步：进食窗口</h2>
+            <div class="radio-group" id="sf-window">
+                <div class="radio-card active" data-value="12-20">12:00-20:00</div>
+                <div class="radio-card" data-value="10-18">10:00-18:00</div>
+                <div class="radio-card" data-value="13-21">13:00-21:00</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第三步：活动水平</h2>
+            <div class="radio-group" id="sf-activity">
+                <div class="radio-card" data-value="sedentary">久坐</div>
+                <div class="radio-card active" data-value="light">轻度活跃</div>
+                <div class="radio-card" data-value="moderate">中度活跃</div>
+            </div>
+        </div>
+        <div class="card">
+            <button class="btn btn-primary" onclick="calculateSixteenEight()">生成计划</button>
+        </div>
+        <div class="card" id="sf-result" style="display: none;">
+            <h2 class="step-title">计划结果</h2>
+            <div id="sf-output"></div>
+            <div style="margin-top: 12px;">
+                <button class="btn btn-outline" onclick="exportSixteenEight()">导出Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-five-two">
+        <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+        <div class="header">
+            <h1>5+2轻断食</h1>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第一步：基本信息</h2>
+            <div class="form-group">
+                <label>体重 (kg)</label>
+                <input type="number" id="ft-weight" value="70">
+            </div>
+            <div class="form-group">
+                <label>身高 (cm)</label>
+                <input type="number" id="ft-height" value="175">
+            </div>
+            <div class="form-group">
+                <label>年龄 (岁)</label>
+                <input type="number" id="ft-age" value="25">
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <select id="ft-gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第二步：断食日选择</h2>
+            <div class="radio-group" id="ft-fast-days">
+                <div class="radio-card active" data-value="1">周一</div>
+                <div class="radio-card" data-value="2">周二</div>
+                <div class="radio-card" data-value="3">周三</div>
+                <div class="radio-card active" data-value="4">周四</div>
+                <div class="radio-card" data-value="5">周五</div>
+                <div class="radio-card" data-value="6">周六</div>
+                <div class="radio-card" data-value="7">周日</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第三步：活动水平</h2>
+            <div class="radio-group" id="ft-activity">
+                <div class="radio-card" data-value="sedentary">久坐</div>
+                <div class="radio-card active" data-value="light">轻度活跃</div>
+                <div class="radio-card" data-value="moderate">中度活跃</div>
+            </div>
+        </div>
+        <div class="card">
+            <button class="btn btn-primary" onclick="calculateFiveTwo()">生成计划</button>
+        </div>
+        <div class="card" id="ft-result" style="display: none;">
+            <h2 class="step-title">计划结果</h2>
+            <div id="ft-output"></div>
+            <div style="margin-top: 12px;">
+                <button class="btn btn-outline" onclick="exportFiveTwo()">导出Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-bulk-plan">
+        <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+        <div class="header">
+            <h1>增肌饮食</h1>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第一步：基本信息</h2>
+            <div class="form-group">
+                <label>体重 (kg)</label>
+                <input type="number" id="bp-weight" value="70">
+            </div>
+            <div class="form-group">
+                <label>身高 (cm)</label>
+                <input type="number" id="bp-height" value="175">
+            </div>
+            <div class="form-group">
+                <label>年龄 (岁)</label>
+                <input type="number" id="bp-age" value="25">
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <select id="bp-gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第二步：活动强度</h2>
+            <div class="radio-group" id="bp-activity">
+                <div class="radio-card" data-value="sedentary">久坐</div>
+                <div class="radio-card active" data-value="light">轻度活跃</div>
+                <div class="radio-card" data-value="moderate">中度活跃</div>
+                <div class="radio-card" data-value="active">非常活跃</div>
+                <div class="radio-card" data-value="athlete">职业运动员</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第三步：训练经验</h2>
+            <div class="radio-group" id="bp-experience">
+                <div class="radio-card" data-value="beginner">新手</div>
+                <div class="radio-card active" data-value="intermediate">中级</div>
+                <div class="radio-card" data-value="advanced">高级</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第四步：热量盈余</h2>
+            <div class="radio-group" id="bp-surplus">
+                <div class="radio-card active" data-value="200">干净增肌(+200)</div>
+                <div class="radio-card" data-value="350">一般增肌(+350)</div>
+                <div class="radio-card" data-value="500">脏增肌(+500)</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第五步：训练计划</h2>
+            <div class="radio-group" id="bp-train-pattern">
+                <div class="radio-card" data-value="1">练1休1</div>
+                <div class="radio-card active" data-value="2">练2休1</div>
+                <div class="radio-card" data-value="3">练3休1</div>
+                <div class="radio-card" data-value="4">练4休1</div>
+            </div>
+        </div>
+        <div class="card">
+            <button class="btn btn-primary" onclick="calculateBulkPlan()">生成计划</button>
+        </div>
+        <div class="card" id="bp-result" style="display: none;">
+            <h2 class="step-title">计划结果</h2>
+            <div id="bp-output"></div>
+            <div style="margin-top: 12px;">
+                <button class="btn btn-outline" onclick="exportBulkPlan()">导出Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-muscle-plan">
+        <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+        <div class="header">
+            <h1>增肌训练计划</h1>
+        </div>
+        <div class="card">
+            <h2 class="step-title">极限重量 (1RM)</h2>
+            <div class="form-group">
+                <label>平板卧推 (kg)</label>
+                <input type="number" id="mp-bench" value="100">
+            </div>
+            <div class="form-group">
+                <label>深蹲 (kg)</label>
+                <input type="number" id="mp-squat" value="120">
+            </div>
+            <div class="form-group">
+                <label>硬拉 (kg)</label>
+                <input type="number" id="mp-deadlift" value="140">
+            </div>
+        </div>
+        <div class="card">
+            <button class="btn btn-primary" onclick="calculateMusclePlan()">生成计划</button>
+        </div>
+        <div class="card" id="mp-result" style="display: none;">
+            <h2 class="step-title">训练计划</h2>
+            <div id="mp-output"></div>
+            <div style="margin-top: 12px;">
+                <button class="btn btn-outline" onclick="exportMusclePlan()">导出Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-three-low-one-high">
+        <button class="back-btn" onclick="showPage('home')">← 返回首页</button>
+        <div class="header">
+            <h1>三低一高碳循环</h1>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第一步：基本信息</h2>
+            <div class="form-group">
+                <label>体重 (kg)</label>
+                <input type="number" id="tloh-weight" value="70">
+            </div>
+            <div class="form-group">
+                <label>身高 (cm)</label>
+                <input type="number" id="tloh-height" value="175">
+            </div>
+            <div class="form-group">
+                <label>年龄 (岁)</label>
+                <input type="number" id="tloh-age" value="25">
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <select id="tloh-gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第二步：胚型选择</h2>
+            <div class="radio-group" id="tloh-somatotype">
+                <div class="radio-card active" data-value="ectomorph">外胚型</div>
+                <div class="radio-card" data-value="mesomorph">中胚型</div>
+                <div class="radio-card" data-value="endomorph">内胚型</div>
+            </div>
+        </div>
+        <div class="card">
+            <h2 class="step-title">第三步：训练计划</h2>
+            <div class="radio-group" id="tloh-train-pattern">
+                <div class="radio-card" data-value="1">练1休1</div>
+                <div class="radio-card active" data-value="2">练2休1</div>
+                <div class="radio-card" data-value="3">练3休1</div>
+                <div class="radio-card" data-value="4">练4休1</div>
+            </div>
+        </div>
+        <div class="card">
+            <button class="btn btn-primary" onclick="calculateThreeLowOneHigh()">生成计划</button>
+        </div>
+        <div class="card" id="tloh-result" style="display: none;">
+            <h2 class="step-title">计划结果</h2>
+            <div id="tloh-output"></div>
+            <div style="margin-top: 12px;">
+                <button class="btn btn-outline" onclick="exportThreeLowOneHigh()">导出Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-btn active" onclick="showPage('home')">📊 饮食计划</button>
+        <button class="nav-btn" onclick="showPage('muscle-plan')">📋 训练计划</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/kings-cycle.js"></script>
+    <script src="js/three-low-one-high.js"></script>
+    <script src="js/orange-carb.js"></script>
+    <script src="js/sixteen-eight.js"></script>
+    <script src="js/five-two.js"></script>
+    <script src="js/bulk-plan.js"></script>
+    <script src="js/muscle-plan.js"></script>
+</body>
+</html>
